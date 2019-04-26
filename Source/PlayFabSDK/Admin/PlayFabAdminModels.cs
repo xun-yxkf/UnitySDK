@@ -2059,6 +2059,8 @@ namespace PlayFab.AdminModels
         EntityAPIKeyLimitExceeded,
         EntityAPIKeyNotFound,
         EntityAPIKeyOrSecretInvalid,
+        EconomyServiceUnavailable,
+        EconomyServiceInternalError,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2078,6 +2080,8 @@ namespace PlayFab.AdminModels
         MatchmakingTicketMembershipLimitExceeded,
         MatchmakingUnauthorized,
         MatchmakingQueueLimitExceeded,
+        MatchmakingRequestTypeMismatch,
+        MatchmakingBadRequest,
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
@@ -2091,6 +2095,7 @@ namespace PlayFab.AdminModels
         CatalogSearchParameterInvalid,
         CatalogFeatureDisabled,
         CatalogConfigInvalid,
+        CatalogUnauthorized,
         ExportInvalidStatusUpdate,
         ExportInvalidPrefix,
         ExportBlobContainerDoesNotExist,
@@ -5339,8 +5344,8 @@ namespace PlayFab.AdminModels
 
     /// <summary>
     /// This function performs an additive update of the arbitrary JSON object containing the custom data for the user. In
-    /// updating the custom data object, keys which already exist in the object will have their values overwritten, while keys
-    /// with null values will be removed. No other key-value pairs will be changed apart from those specified in the call.
+    /// updating the custom data object, keys which already exist in the object will have their values overwritten, keys with
+    /// null values will be removed. No other key-value pairs will be changed apart from those specified in the call.
     /// </summary>
     [Serializable]
     public class UpdateUserDataRequest : PlayFabRequestCommon

@@ -86,6 +86,19 @@ namespace PlayFab.ServerModels
         public string PlayFabId;
     }
 
+    [Serializable]
+    public class AddGenericIDRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Generic service identifier to add to the player account.
+        /// </summary>
+        public GenericServiceId GenericId;
+        /// <summary>
+        /// PlayFabId of the user to link.
+        /// </summary>
+        public string PlayFabId;
+    }
+
     /// <summary>
     /// This API will trigger a player_tag_added event and add a tag with the given TagName and PlayFabID to the corresponding
     /// player profile. TagName can be used for segmentation and it is limited to 256 characters. Also there is a limit on the
@@ -1139,6 +1152,11 @@ namespace PlayFab.ServerModels
     {
     }
 
+    [Serializable]
+    public class EmptyResult : PlayFabResultCommon
+    {
+    }
+
     /// <summary>
     /// Combined entity type and ID structure which uniquely identifies a single entity.
     /// </summary>
@@ -1797,6 +1815,11 @@ namespace PlayFab.ServerModels
         WriteAttemptedDuringExport,
         MultiplayerServerTitleQuotaCoresExceeded,
         AutomationRuleNotFound,
+        EntityAPIKeyLimitExceeded,
+        EntityAPIKeyNotFound,
+        EntityAPIKeyOrSecretInvalid,
+        EconomyServiceUnavailable,
+        EconomyServiceInternalError,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1816,6 +1839,8 @@ namespace PlayFab.ServerModels
         MatchmakingTicketMembershipLimitExceeded,
         MatchmakingUnauthorized,
         MatchmakingQueueLimitExceeded,
+        MatchmakingRequestTypeMismatch,
+        MatchmakingBadRequest,
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
@@ -1828,18 +1853,8 @@ namespace PlayFab.ServerModels
         CatalogItemIdInvalid,
         CatalogSearchParameterInvalid,
         CatalogFeatureDisabled,
-        CatalogConfigMissing,
-        CatalogConfigTooManyContentTypes,
-        CatalogConfigContentTypeTooLong,
-        CatalogConfigTooManyTags,
-        CatalogConfigTagTooLong,
-        CatalogConfigInvalidDeepLinkObject,
-        CatalogConfigInvalidDeepLinkPlatform,
-        CatalogConfigInvalidDeepLinkFormat,
-        CatalogConfigInvalidDisplayPropertyObject,
-        CatalogConfigInvalidDisplayPropertyName,
-        CatalogConfigInvalidDisplayPropertyType,
-        CatalogConfigDisplayPropertyMappingLimit,
+        CatalogConfigInvalid,
+        CatalogUnauthorized,
         ExportInvalidStatusUpdate,
         ExportInvalidPrefix,
         ExportBlobContainerDoesNotExist,
@@ -1853,7 +1868,36 @@ namespace PlayFab.ServerModels
         ExportKustoExceptionNew_SomeResources,
         ExportKustoExceptionEdit,
         ExportKustoConnectionFailed,
-        ExportUnknownError
+        ExportUnknownError,
+        ExportCantEditPendingExport,
+        ExportLimitExports,
+        ExportLimitEvents
+    }
+
+    [Serializable]
+    public class GenericPlayFabIdPair : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Unique generic service identifier for a user.
+        /// </summary>
+        public GenericServiceId GenericId;
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the given generic identifier.
+        /// </summary>
+        public string PlayFabId;
+    }
+
+    [Serializable]
+    public class GenericServiceId : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Name of the service for which the player has a unique identifier.
+        /// </summary>
+        public string ServiceName;
+        /// <summary>
+        /// Unique identifier of the player in that service.
+        /// </summary>
+        public string UserId;
     }
 
     /// <summary>
@@ -2697,6 +2741,28 @@ namespace PlayFab.ServerModels
         /// Mapping of Facebook Instant Games identifiers to PlayFab identifiers.
         /// </summary>
         public List<FacebookInstantGamesPlayFabIdPair> Data;
+    }
+
+    [Serializable]
+    public class GetPlayFabIDsFromGenericIDsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique generic service identifiers for which the title needs to get PlayFab identifiers. Currently limited to a
+        /// maximum of 10 in a single request.
+        /// </summary>
+        public List<GenericServiceId> GenericIDs;
+    }
+
+    /// <summary>
+    /// For generic service identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
+    [Serializable]
+    public class GetPlayFabIDsFromGenericIDsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of generic service identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<GenericPlayFabIdPair> Data;
     }
 
     [Serializable]
@@ -4423,6 +4489,19 @@ namespace PlayFab.ServerModels
         public string PlayFabId;
     }
 
+    [Serializable]
+    public class RemoveGenericIDRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Generic service identifier to be removed from the player.
+        /// </summary>
+        public GenericServiceId GenericId;
+        /// <summary>
+        /// PlayFabId of the user to remove.
+        /// </summary>
+        public string PlayFabId;
+    }
+
     /// <summary>
     /// This API will trigger a player_tag_removed event and remove a tag with the given TagName and PlayFabID from the
     /// corresponding player profile. TagName can be used for segmentation and it is limited to 256 characters
@@ -5333,8 +5412,8 @@ namespace PlayFab.ServerModels
 
     /// <summary>
     /// This function performs an additive update of the arbitrary JSON object containing the custom data for the user. In
-    /// updating the custom data object, keys which already exist in the object will have their values overwritten, while keys
-    /// with null values will be removed. No other key-value pairs will be changed apart from those specified in the call.
+    /// updating the custom data object, keys which already exist in the object will have their values overwritten, keys with
+    /// null values will be removed. No other key-value pairs will be changed apart from those specified in the call.
     /// </summary>
     [Serializable]
     public class UpdateCharacterDataRequest : PlayFabRequestCommon

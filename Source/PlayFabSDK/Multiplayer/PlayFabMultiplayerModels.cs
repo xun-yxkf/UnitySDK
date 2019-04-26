@@ -173,7 +173,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public EntityKey Entity;
         /// <summary>
-        /// The Id of the queue from which a player's tickets should be canceled.
+        /// The name of the queue from which a player's tickets should be canceled.
         /// </summary>
         public string QueueName;
     }
@@ -191,20 +191,21 @@ namespace PlayFab.MultiplayerModels
     }
 
     /// <summary>
-    /// Only servers and ticket members can cancel a ticket. The ticket can be in four different states when it is cancelled. 1:
+    /// Only servers and ticket members can cancel a ticket. The ticket can be in five different states when it is cancelled. 1:
     /// the ticket is waiting for members to join it, and it has not started matching. If the ticket is cancelled at this stage,
     /// it will never match. 2: the ticket is matching. If the ticket is cancelled, it will stop matching. 3: the ticket is
-    /// matched. A matched ticket cannot be cancelled. 4: the ticket is already cancelled and nothing happens. There may be race
-    /// conditions between the ticket getting matched and the client making a cancellation request. The client must handle the
-    /// possibility that the cancel request fails if a match is found before the cancellation request is processed. We do not
-    /// allow resubmitting a cancelled ticket because players must consent to enter matchmaking again. Create a new ticket
-    /// instead.
+    /// matched. A matched ticket cannot be cancelled. 4: the ticket is already cancelled and nothing happens. 5: the ticket is
+    /// waiting for a server. If the ticket is cancelled, server allocation will be stopped. A server may still be allocated due
+    /// to a race condition, but that will not be reflected in the ticket. There may be race conditions between the ticket
+    /// getting matched and the client making a cancellation request. The client must handle the possibility that the cancel
+    /// request fails if a match is found before the cancellation request is processed. We do not allow resubmitting a cancelled
+    /// ticket because players must consent to enter matchmaking again. Create a new ticket instead.
     /// </summary>
     [Serializable]
     public class CancelMatchmakingTicketRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// The Id of the queue to join.
+        /// The name of the queue the ticket is in.
         /// </summary>
         public string QueueName;
         /// <summary>
@@ -912,7 +913,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public bool EscapeObject;
         /// <summary>
-        /// The Id of the queue to find a match for.
+        /// The name of the queue to find a match for.
         /// </summary>
         public string QueueName;
         /// <summary>
@@ -985,7 +986,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string MatchId;
         /// <summary>
-        /// The Id of the queue to join.
+        /// The name of the queue to join.
         /// </summary>
         public string QueueName;
         /// <summary>
@@ -1176,7 +1177,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public MatchmakingPlayer Member;
         /// <summary>
-        /// The Id of the queue to join.
+        /// The name of the queue to join.
         /// </summary>
         public string QueueName;
         /// <summary>
@@ -1372,7 +1373,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public EntityKey Entity;
         /// <summary>
-        /// The Id of the queue to find a match for.
+        /// The name of the queue to find a match for.
         /// </summary>
         public string QueueName;
     }
@@ -1541,7 +1542,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public EntityKey Entity;
         /// <summary>
-        /// The Id of the team the User has been assigned to by matchmaking.
+        /// The Id of the team the User is assigned to.
         /// </summary>
         public string TeamId;
     }
@@ -1557,6 +1558,10 @@ namespace PlayFab.MultiplayerModels
         /// Maximum number of players in a match.
         /// </summary>
         public uint MaxMatchSize;
+        /// <summary>
+        /// Maximum number of players in a ticket.
+        /// </summary>
+        public uint? MaxTicketSize;
         /// <summary>
         /// Minimum number of players in a match.
         /// </summary>
@@ -1831,6 +1836,10 @@ namespace PlayFab.MultiplayerModels
         /// The ports the multiplayer server uses.
         /// </summary>
         public List<Port> Ports;
+        /// <summary>
+        /// The server's region.
+        /// </summary>
+        public string Region;
     }
 
     /// <summary>

@@ -22,6 +22,38 @@ namespace PlayFab.PlayStreamModels
     }
 
     #region none
+    public class EntityCatalogDraftItemCreatedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityCatalogDraftItemCreatedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
+    public class EntityCatalogDraftItemDeletedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityCatalogDraftItemDeletedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
+    public class EntityCatalogDraftItemPublishRequestedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityCatalogDraftItemPublishRequestedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
+    public class EntityCatalogDraftItemUpdatedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityCatalogDraftItemUpdatedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
     public class EntityCreatedEventData : PlayStreamEventBase
     {
         public string EntityChain;
@@ -57,14 +89,45 @@ namespace PlayFab.PlayStreamModels
         public EntityLineage EntityLineage;
         public List<ObjectSet> Objects;
     }
-    public class EntityVirtualCurrencyBalancesChangedEventData : PlayStreamEventBase
+    public class EntityUserGeneratedContentDraftItemCreatedEventDataDoc : PlayStreamEventBase
     {
-        public string EntityChain;
         public EntityLineage EntityLineage;
-        public string SequenceId;
-        public Dictionary<string,int> VirtualCurrencyBalances;
-        public string VirtualCurrencyContainerId;
-        public Dictionary<string,int> VirtualCurrencyPreviousBalances;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityUserGeneratedContentDraftItemCreatedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
+    public class EntityUserGeneratedContentDraftItemDeletedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityUserGeneratedContentDraftItemDeletedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
+    public class EntityUserGeneratedContentDraftItemPublishRequestedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityUserGeneratedContentDraftItemPublishRequestedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
+    public class EntityUserGeneratedContentDraftItemUpdatedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityUserGeneratedContentDraftItemUpdatedEventPayload Payload;
+        public EntityKey WriterEntity;
+    }
+    public class EntityUserGeneratedContentItemReportedEventDataDoc : PlayStreamEventBase
+    {
+        public EntityLineage EntityLineage;
+        public string OriginalEventId;
+        public DateTime? OriginalTimestamp;
+        public EntityUserGeneratedContentItemReportedEventPayload Payload;
+        public EntityKey WriterEntity;
     }
     public class GroupCreatedEventData : PlayStreamEventBase
     {
@@ -157,30 +220,6 @@ namespace PlayFab.PlayStreamModels
         public GroupPropertyValues OldValues;
         public string UpdaterEntityId;
         public string UpdaterEntityType;
-    }
-    public class MatchmakingMatchFoundEventData : PlayStreamEventBase
-    {
-        public EntityLineage EntityLineage;
-        public MatchmakingMatchFoundPayload Payload;
-        public EntityKey WriterEntity;
-    }
-    public class MatchmakingTicketCompleteEventData : PlayStreamEventBase
-    {
-        public EntityLineage EntityLineage;
-        public MatchmakingTicketCompletePayload Payload;
-        public EntityKey WriterEntity;
-    }
-    public class MatchmakingUserTicketCompleteEventData : PlayStreamEventBase
-    {
-        public EntityLineage EntityLineage;
-        public MatchmakingUserTicketCompletePayload Payload;
-        public EntityKey WriterEntity;
-    }
-    public class MatchmakingUserTicketInviteEventData : PlayStreamEventBase
-    {
-        public EntityLineage EntityLineage;
-        public MatchmakingUserTicketInvitePayload Payload;
-        public EntityKey WriterEntity;
     }
     public class MultiplayerServerBuildDeletedEventDataDoc : PlayStreamEventBase
     {
@@ -293,6 +332,13 @@ namespace PlayFab.PlayStreamModels
         public DateTime? OriginalTimestamp;
         public MultiplayerServerVmUnhealthyEventPayload Payload;
         public EntityKey WriterEntity;
+    }
+    public class PublisherProductMappingChangedEventData : PlayStreamEventBase
+    {
+        public string DeveloperId;
+        public PublisherStore? Publisher;
+        public List<PublisherProduct> PublisherProducts;
+        public string UserId;
     }
     public class StudioCreatedEventData : PlayStreamEventBase
     {
@@ -1107,13 +1153,6 @@ namespace PlayFab.PlayStreamModels
         public int Revision;
         public string UserId;
     }
-    public class TitleQueueConfigUpdatedEventData : PlayStreamEventBase
-    {
-        public bool Deleted;
-        public string DeveloperId;
-        public string MatchQueueName;
-        public string UserId;
-    }
     public class TitleRequestedLimitChangeEventData : PlayStreamEventBase
     {
         public string DeveloperId;
@@ -1187,361 +1226,6 @@ namespace PlayFab.PlayStreamModels
         public string UserId;
     }
     #endregion title
-
-    [Serializable]
-    public class EntityLineage
-    {
-        /// <summary>
-        /// The Character Id of the associated entity.
-        /// </summary>
-        public string CharacterId;
-        /// <summary>
-        /// The Group Id of the associated entity.
-        /// </summary>
-        public string GroupId;
-        /// <summary>
-        /// The Master Player Account Id of the associated entity.
-        /// </summary>
-        public string MasterPlayerAccountId;
-        /// <summary>
-        /// The Namespace Id of the associated entity.
-        /// </summary>
-        public string NamespaceId;
-        /// <summary>
-        /// The Title Id of the associated entity.
-        /// </summary>
-        public string TitleId;
-        /// <summary>
-        /// The Title Player Account Id of the associated entity.
-        /// </summary>
-        public string TitlePlayerAccountId;
-    }
-
-    [Serializable]
-    public class LogStatement
-    {
-        /// <summary>
-        /// Optional object accompanying the message as contextual information
-        /// </summary>
-        public object Data;
-        /// <summary>
-        /// 'Debug', 'Info', or 'Error'
-        /// </summary>
-        public string Level;
-        public string Message;
-    }
-
-    [Serializable]
-    public class ScriptExecutionError
-    {
-        /// <summary>
-        /// Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded,
-        /// CloudScriptAPIRequestCountExceeded, CloudScriptAPIRequestError, or CloudScriptHTTPRequestError
-        /// </summary>
-        public string Error;
-        /// <summary>
-        /// Details about the error
-        /// </summary>
-        public string Message;
-        /// <summary>
-        /// Point during the execution of the script at which the error occurred, if any
-        /// </summary>
-        public string StackTrace;
-    }
-
-    [Serializable]
-    public class ExecuteCloudScriptResult
-    {
-        /// <summary>
-        /// Number of PlayFab API requests issued by the CloudScript function
-        /// </summary>
-        public int APIRequestsIssued;
-        /// <summary>
-        /// Information about the error, if any, that occurred during execution
-        /// </summary>
-        public ScriptExecutionError Error;
-        public double ExecutionTimeSeconds;
-        /// <summary>
-        /// The name of the function that executed
-        /// </summary>
-        public string FunctionName;
-        /// <summary>
-        /// The object returned from the CloudScript function, if any
-        /// </summary>
-        public object FunctionResult;
-        /// <summary>
-        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if
-        /// the total event size is larger than 350KB.
-        /// </summary>
-        public bool? FunctionResultTooLarge;
-        /// <summary>
-        /// Number of external HTTP requests issued by the CloudScript function
-        /// </summary>
-        public int HttpRequestsIssued;
-        /// <summary>
-        /// Entries logged during the function execution. These include both entries logged in the function code using log.info()
-        /// and log.error() and error entries for API and HTTP request failures.
-        /// </summary>
-        public List<LogStatement> Logs;
-        /// <summary>
-        /// Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total
-        /// event size is larger than 350KB after the FunctionResult was removed.
-        /// </summary>
-        public bool? LogsTooLarge;
-        public uint MemoryConsumedBytes;
-        /// <summary>
-        /// Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP
-        /// requests.
-        /// </summary>
-        public double ProcessorTimeSeconds;
-        /// <summary>
-        /// The revision of the CloudScript that executed
-        /// </summary>
-        public int Revision;
-    }
-
-    public enum OperationTypes
-    {
-        Created,
-        Updated,
-        Deleted,
-        None
-    }
-
-    [Serializable]
-    public class FileSet
-    {
-        /// <summary>
-        /// The storage size according to the underlying provider.
-        /// </summary>
-        public int ByteCount;
-        /// <summary>
-        /// The checksum according to the underlying provider.
-        /// </summary>
-        public string Checksum;
-        /// <summary>
-        /// File that was updated.
-        /// </summary>
-        public string FileName;
-        /// <summary>
-        /// The operation that was performed.
-        /// </summary>
-        public OperationTypes? Operation;
-        /// <summary>
-        /// The storage size of the old file, if there was one.
-        /// </summary>
-        public int? PreviousByteCount;
-        /// <summary>
-        /// The storage size of the old file, if there was one.
-        /// </summary>
-        public string PreviousChecksum;
-        /// <summary>
-        /// The old file's unique storage path that was deleted by this operation, if there was one.
-        /// </summary>
-        public string PreviousStoragePath;
-        /// <summary>
-        /// The unique storage path for this set operation.
-        /// </summary>
-        public string StoragePath;
-    }
-
-    [Serializable]
-    public class ObjectSet
-    {
-        /// <summary>
-        /// The JSON Object that was last set on the profile.
-        /// </summary>
-        public object DataObject;
-        /// <summary>
-        /// The name of this object.
-        /// </summary>
-        public string Name;
-        /// <summary>
-        /// The operation that was performed.
-        /// </summary>
-        public OperationTypes? Operation;
-    }
-
-    [Serializable]
-    public class Member
-    {
-        /// <summary>
-        /// The identifier for the member entity.
-        /// </summary>
-        public string EntityId;
-        /// <summary>
-        /// The type of member entity.
-        /// </summary>
-        public string EntityType;
-    }
-
-    [Serializable]
-    public class RolePropertyValues
-    {
-        public string RoleName;
-    }
-
-    [Serializable]
-    public class GroupPropertyValues
-    {
-        public string AdminRoleId;
-        public string GroupName;
-        public string MemberRoleId;
-    }
-
-    [Serializable]
-    public class MultiplayerServerBuildDeletedEventPayload
-    {
-        /// <summary>
-        /// The guid string ID of the multiplayer server build that was deleted.
-        /// </summary>
-        public string BuildId;
-    }
-
-    /// <summary>
-    /// Combined entity type and ID structure which uniquely identifies a single entity.
-    /// </summary>
-    [Serializable]
-    public class EntityKey
-    {
-        /// <summary>
-        /// Unique ID of the entity.
-        /// </summary>
-        public string Id;
-        /// <summary>
-        /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
-        /// </summary>
-        public string Type;
-        /// <summary>
-        /// Alternate name for Type.
-        /// </summary>
-        [Obsolete("Use 'Type' instead", true)]
-        public string TypeString;
-    }
-
-    public enum AzureRegion
-    {
-        AustraliaEast,
-        AustraliaSoutheast,
-        BrazilSouth,
-        CentralUs,
-        EastAsia,
-        EastUs,
-        EastUs2,
-        JapanEast,
-        JapanWest,
-        NorthCentralUs,
-        NorthEurope,
-        SouthCentralUs,
-        SoutheastAsia,
-        WestEurope,
-        WestUs,
-        ChinaEast2,
-        ChinaNorth2
-    }
-
-    [Serializable]
-    public class MultiplayerServerBuildRegionStatusChangedEventPayload
-    {
-        /// <summary>
-        /// The guid string ID of the build.
-        /// </summary>
-        public string BuildId;
-        /// <summary>
-        /// The duration (minutes) in the old build status.
-        /// </summary>
-        public double MinutesInOldStatus;
-        /// <summary>
-        /// The new build region status.
-        /// </summary>
-        public string NewStatus;
-        /// <summary>
-        /// The old build region status.
-        /// </summary>
-        public string OldStatus;
-        /// <summary>
-        /// The build region.
-        /// </summary>
-        public AzureRegion? Region;
-    }
-
-    [Serializable]
-    public class BuildRegion
-    {
-        /// <summary>
-        /// The maximum number of multiplayer servers for the region.
-        /// </summary>
-        public int MaxServers;
-        /// <summary>
-        /// The build region.
-        /// </summary>
-        public AzureRegion? Region;
-        /// <summary>
-        /// The number of standby multiplayer servers for the region.
-        /// </summary>
-        public int StandbyServers;
-    }
-
-    [Serializable]
-    public class MultiplayerServerBuildRegionUpdatedEventPayload
-    {
-        /// <summary>
-        /// The guid string ID of the multiplayer server build that regions were updated on.
-        /// </summary>
-        public string BuildId;
-        /// <summary>
-        /// The updated region configuration that should be applied to the specified build.
-        /// </summary>
-        public List<BuildRegion> BuildRegions;
-    }
-
-    [Serializable]
-    public class MultiplayerServerCertificateDeletedEventPayload
-    {
-        /// <summary>
-        /// The name of the certificate that was deleted.
-        /// </summary>
-        public string CertificateName;
-    }
-
-    [Serializable]
-    public class MultiplayerServerCertificateUploadedEventPayload
-    {
-        /// <summary>
-        /// The name of the certificate that was uploaded.
-        /// </summary>
-        public string CertificateName;
-    }
-
-    [Serializable]
-    public class MultiplayerServerCreateBuildInitiatedEventPayload
-    {
-        /// <summary>
-        /// The guid string ID of the build
-        /// </summary>
-        public string BuildId;
-        /// <summary>
-        /// The build name.
-        /// </summary>
-        public string BuildName;
-        /// <summary>
-        /// The time (UTC) that the build was created.
-        /// </summary>
-        public DateTime? CreationTime;
-        /// <summary>
-        /// The developer defined metadata of the build.
-        /// </summary>
-        public Dictionary<string,string> Metadata;
-    }
-
-    [Serializable]
-    public class MultiplayerServerGameAssetDeletedEventPayload
-    {
-        /// <summary>
-        /// The filename of the asset that was deleted.
-        /// </summary>
-        public string AssetFileName;
-    }
 
     public enum GenericErrorCodes
     {
@@ -1936,8 +1620,7 @@ namespace PlayFab.PlayStreamModels
         EntityProfileConstraintValidationFailed,
         TelemetryIngestionKeyPending,
         TelemetryIngestionKeyNotFound,
-        StatisticTagRequired,
-        StatisticTagInvalid,
+        StatisticChildNameInvalid,
         DataIntegrityError,
         VirtualCurrencyCannotBeSetToOlderVersion,
         VirtualCurrencyMustBeWithinIntegerRange,
@@ -1963,47 +1646,505 @@ namespace PlayFab.PlayStreamModels
         TitleNewsMissingTitleOrBody,
         TitleNewsInvalidLanguage,
         EmailRecipientBlacklisted,
+        InvalidGameCenterAuthRequest,
+        GameCenterAuthenticationFailed,
+        CannotEnablePartiesForTitle,
+        PartyError,
+        PartyRequests,
+        PartyNoContent,
+        PartyBadRequest,
+        PartyUnauthorized,
+        PartyForbidden,
+        PartyNotFound,
+        PartyConflict,
+        PartyInternalServerError,
+        PartyUnavailable,
+        PartyTooManyRequests,
+        PushNotificationTemplateMissingName,
+        CannotEnableMultiplayerServersForTitle,
+        WriteAttemptedDuringExport,
+        MultiplayerServerTitleQuotaCoresExceeded,
+        AutomationRuleNotFound,
+        EntityAPIKeyLimitExceeded,
+        EntityAPIKeyNotFound,
+        EntityAPIKeyOrSecretInvalid,
+        EconomyServiceUnavailable,
+        EconomyServiceInternalError,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
-        MatchmakingCreateRequestMissing,
-        MatchmakingCreateRequestCreatorMissing,
-        MatchmakingCreateRequestCreatorIdMissing,
-        MatchmakingCreateRequestUserListMissing,
-        MatchmakingCreateRequestGiveUpAfterInvalid,
-        MatchmakingTicketIdMissing,
-        MatchmakingMatchIdMissing,
-        MatchmakingMatchIdIdMissing,
-        MatchmakingQueueNameMissing,
-        MatchmakingTitleIdMissing,
-        MatchmakingTicketIdIdMissing,
-        MatchmakingPlayerIdMissing,
-        MatchmakingJoinRequestUserMissing,
-        MatchmakingQueueConfigNotFound,
+        MatchmakingQueueNotFound,
         MatchmakingMatchNotFound,
         MatchmakingTicketNotFound,
-        MatchmakingCreateTicketServerIdentityInvalid,
-        MatchmakingCreateTicketClientIdentityInvalid,
-        MatchmakingGetTicketUserMismatch,
-        MatchmakingJoinTicketServerIdentityInvalid,
-        MatchmakingJoinTicketUserIdentityMismatch,
-        MatchmakingCancelTicketServerIdentityInvalid,
-        MatchmakingCancelTicketUserIdentityMismatch,
-        MatchmakingGetMatchIdentityMismatch,
-        MatchmakingPlayerIdentityMismatch,
         MatchmakingAlreadyJoinedTicket,
         MatchmakingTicketAlreadyCompleted,
-        MatchmakingQueueNameInvalid,
         MatchmakingQueueConfigInvalid,
         MatchmakingMemberProfileInvalid,
-        WriteAttemptedDuringExport,
         NintendoSwitchDeviceIdNotLinked,
         MatchmakingNotEnabled,
-        MatchmakingGetStatisticsIdentityInvalid,
-        MatchmakingStatisticsIdMissing,
-        CannotEnableMultiplayerServersForTitle,
+        MatchmakingPlayerAttributesTooLarge,
+        MatchmakingNumberOfPlayersInTicketTooLarge,
+        MatchmakingAttributeInvalid,
+        MatchmakingPlayerHasNotJoinedTicket,
+        MatchmakingRateLimitExceeded,
+        MatchmakingTicketMembershipLimitExceeded,
+        MatchmakingUnauthorized,
+        MatchmakingQueueLimitExceeded,
+        MatchmakingRequestTypeMismatch,
+        MatchmakingBadRequest,
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
-        TitleConfigSerializationError
+        TitleConfigSerializationError,
+        CatalogEntityInvalid,
+        CatalogTitleIdMissing,
+        CatalogPlayerIdMissing,
+        CatalogClientIdentityInvalid,
+        CatalogOneOrMoreFilesInvalid,
+        CatalogItemMetadataInvalid,
+        CatalogItemIdInvalid,
+        CatalogSearchParameterInvalid,
+        CatalogFeatureDisabled,
+        CatalogConfigInvalid,
+        CatalogUnauthorized,
+        ExportInvalidStatusUpdate,
+        ExportInvalidPrefix,
+        ExportBlobContainerDoesNotExist,
+        ExportEventNameNotFound,
+        ExportExportTitleIdNotFound,
+        ExportCouldNotUpdate,
+        ExportInvalidStorageType,
+        ExportAmazonBucketDoesNotExist,
+        ExportInvalidBlobStorage,
+        ExportKustoException,
+        ExportKustoExceptionNew_SomeResources,
+        ExportKustoExceptionEdit,
+        ExportKustoConnectionFailed,
+        ExportUnknownError,
+        ExportCantEditPendingExport,
+        ExportLimitExports,
+        ExportLimitEvents
+    }
+
+    [Serializable]
+    public class EntityCatalogDraftItemCreatedEventPayload
+    {
+        /// <summary>
+        /// The error when a catalog item create request fails. If there was no failure, will be null.
+        /// </summary>
+        public GenericErrorCodes? ErrorCode;
+        /// <summary>
+        /// The string ID of the item that was created. Will be empty if the create call failed.
+        /// </summary>
+        public string ItemId;
+        /// <summary>
+        /// The human-readable error message when a catalog item create request fails. If there was no failure, will be empty.
+        /// </summary>
+        public string Message;
+    }
+
+    /// <summary>
+    /// Combined entity type and ID structure which uniquely identifies a single entity.
+    /// </summary>
+    [Serializable]
+    public class EntityKey
+    {
+        /// <summary>
+        /// Unique ID of the entity.
+        /// </summary>
+        public string Id;
+        /// <summary>
+        /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
+        /// </summary>
+        public string Type;
+        /// <summary>
+        /// Alternate name for Type.
+        /// </summary>
+        [Obsolete("Use 'Type' instead", true)]
+        public string TypeString;
+    }
+
+    [Serializable]
+    public class EntityLineage
+    {
+        /// <summary>
+        /// The Character Id of the associated entity.
+        /// </summary>
+        public string CharacterId;
+        /// <summary>
+        /// The Group Id of the associated entity.
+        /// </summary>
+        public string GroupId;
+        /// <summary>
+        /// The Master Player Account Id of the associated entity.
+        /// </summary>
+        public string MasterPlayerAccountId;
+        /// <summary>
+        /// The Namespace Id of the associated entity.
+        /// </summary>
+        public string NamespaceId;
+        /// <summary>
+        /// The Title Id of the associated entity.
+        /// </summary>
+        public string TitleId;
+        /// <summary>
+        /// The Title Player Account Id of the associated entity.
+        /// </summary>
+        public string TitlePlayerAccountId;
+    }
+
+    [Serializable]
+    public class EntityCatalogDraftItemDeletedEventPayload
+    {
+        /// <summary>
+        /// The error when a catalog item deleted request fails. If there was no failure, will be null.
+        /// </summary>
+        public GenericErrorCodes? ErrorCode;
+        /// <summary>
+        /// The ID of the item that was deleted.
+        /// </summary>
+        public string ItemId;
+        /// <summary>
+        /// The human-readable error message when a catalog item deleted request fails. If there was no failure, will be empty.
+        /// </summary>
+        public string Message;
+    }
+
+    [Serializable]
+    public class EntityCatalogDraftItemPublishRequestedEventPayload
+    {
+        /// <summary>
+        /// The error when a catalog item publish request fails. If there was no failure, will be null.
+        /// </summary>
+        public GenericErrorCodes? ErrorCode;
+        /// <summary>
+        /// The string ID of the draft item that was requested to be published. Will be empty if the request call failed.
+        /// </summary>
+        public string ItemId;
+        /// <summary>
+        /// The human-readable error message when a catalog item publish request fails. If there was no failure, will be empty.
+        /// </summary>
+        public string Message;
+    }
+
+    [Serializable]
+    public class EntityCatalogDraftItemUpdatedEventPayload
+    {
+        /// <summary>
+        /// The error when a catalog item update request fails. If there was no failure, will be null.
+        /// </summary>
+        public GenericErrorCodes? ErrorCode;
+        /// <summary>
+        /// The string ID of the item that was updated. Will be empty if the update call failed.
+        /// </summary>
+        public string ItemId;
+        /// <summary>
+        /// The human-readable error message when a catalog item update request fails. If there was no failure, will be empty.
+        /// </summary>
+        public string Message;
+    }
+
+    [Serializable]
+    public class LogStatement
+    {
+        /// <summary>
+        /// Optional object accompanying the message as contextual information
+        /// </summary>
+        public object Data;
+        /// <summary>
+        /// 'Debug', 'Info', or 'Error'
+        /// </summary>
+        public string Level;
+        public string Message;
+    }
+
+    [Serializable]
+    public class ScriptExecutionError
+    {
+        /// <summary>
+        /// Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded,
+        /// CloudScriptAPIRequestCountExceeded, CloudScriptAPIRequestError, or CloudScriptHTTPRequestError
+        /// </summary>
+        public string Error;
+        /// <summary>
+        /// Details about the error
+        /// </summary>
+        public string Message;
+        /// <summary>
+        /// Point during the execution of the script at which the error occurred, if any
+        /// </summary>
+        public string StackTrace;
+    }
+
+    [Serializable]
+    public class ExecuteCloudScriptResult
+    {
+        /// <summary>
+        /// Number of PlayFab API requests issued by the CloudScript function
+        /// </summary>
+        public int APIRequestsIssued;
+        /// <summary>
+        /// Information about the error, if any, that occurred during execution
+        /// </summary>
+        public ScriptExecutionError Error;
+        public double ExecutionTimeSeconds;
+        /// <summary>
+        /// The name of the function that executed
+        /// </summary>
+        public string FunctionName;
+        /// <summary>
+        /// The object returned from the CloudScript function, if any
+        /// </summary>
+        public object FunctionResult;
+        /// <summary>
+        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if
+        /// the total event size is larger than 350KB.
+        /// </summary>
+        public bool? FunctionResultTooLarge;
+        /// <summary>
+        /// Number of external HTTP requests issued by the CloudScript function
+        /// </summary>
+        public int HttpRequestsIssued;
+        /// <summary>
+        /// Entries logged during the function execution. These include both entries logged in the function code using log.info()
+        /// and log.error() and error entries for API and HTTP request failures.
+        /// </summary>
+        public List<LogStatement> Logs;
+        /// <summary>
+        /// Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total
+        /// event size is larger than 350KB after the FunctionResult was removed.
+        /// </summary>
+        public bool? LogsTooLarge;
+        public uint MemoryConsumedBytes;
+        /// <summary>
+        /// Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP
+        /// requests.
+        /// </summary>
+        public double ProcessorTimeSeconds;
+        /// <summary>
+        /// The revision of the CloudScript that executed
+        /// </summary>
+        public int Revision;
+    }
+
+    public enum OperationTypes
+    {
+        Created,
+        Updated,
+        Deleted,
+        None
+    }
+
+    [Serializable]
+    public class FileSet
+    {
+        /// <summary>
+        /// The storage size according to the underlying provider.
+        /// </summary>
+        public int ByteCount;
+        /// <summary>
+        /// The checksum according to the underlying provider.
+        /// </summary>
+        public string Checksum;
+        /// <summary>
+        /// File that was updated.
+        /// </summary>
+        public string FileName;
+        /// <summary>
+        /// The operation that was performed.
+        /// </summary>
+        public OperationTypes? Operation;
+        /// <summary>
+        /// The storage size of the old file, if there was one.
+        /// </summary>
+        public int? PreviousByteCount;
+        /// <summary>
+        /// The storage size of the old file, if there was one.
+        /// </summary>
+        public string PreviousChecksum;
+        /// <summary>
+        /// The old file's unique storage path that was deleted by this operation, if there was one.
+        /// </summary>
+        public string PreviousStoragePath;
+        /// <summary>
+        /// The unique storage path for this set operation.
+        /// </summary>
+        public string StoragePath;
+    }
+
+    [Serializable]
+    public class ObjectSet
+    {
+        /// <summary>
+        /// The JSON Object that was last set on the profile.
+        /// </summary>
+        public object DataObject;
+        /// <summary>
+        /// The name of this object.
+        /// </summary>
+        public string Name;
+        /// <summary>
+        /// The operation that was performed.
+        /// </summary>
+        public OperationTypes? Operation;
+    }
+
+    [Serializable]
+    public class Member
+    {
+        /// <summary>
+        /// The identifier for the member entity.
+        /// </summary>
+        public string EntityId;
+        /// <summary>
+        /// The type of member entity.
+        /// </summary>
+        public string EntityType;
+    }
+
+    [Serializable]
+    public class RolePropertyValues
+    {
+        public string RoleName;
+    }
+
+    [Serializable]
+    public class GroupPropertyValues
+    {
+        public string AdminRoleId;
+        public string GroupName;
+        public string MemberRoleId;
+    }
+
+    [Serializable]
+    public class MultiplayerServerBuildDeletedEventPayload
+    {
+        /// <summary>
+        /// The guid string ID of the multiplayer server build that was deleted.
+        /// </summary>
+        public string BuildId;
+    }
+
+    public enum AzureRegion
+    {
+        AustraliaEast,
+        AustraliaSoutheast,
+        BrazilSouth,
+        CentralUs,
+        EastAsia,
+        EastUs,
+        EastUs2,
+        JapanEast,
+        JapanWest,
+        NorthCentralUs,
+        NorthEurope,
+        SouthCentralUs,
+        SoutheastAsia,
+        WestEurope,
+        WestUs,
+        ChinaEast2,
+        ChinaNorth2
+    }
+
+    [Serializable]
+    public class MultiplayerServerBuildRegionStatusChangedEventPayload
+    {
+        /// <summary>
+        /// The guid string ID of the build.
+        /// </summary>
+        public string BuildId;
+        /// <summary>
+        /// The duration (minutes) in the old build status.
+        /// </summary>
+        public double MinutesInOldStatus;
+        /// <summary>
+        /// The new build region status.
+        /// </summary>
+        public string NewStatus;
+        /// <summary>
+        /// The old build region status.
+        /// </summary>
+        public string OldStatus;
+        /// <summary>
+        /// The build region.
+        /// </summary>
+        public AzureRegion? Region;
+    }
+
+    [Serializable]
+    public class BuildRegion
+    {
+        /// <summary>
+        /// The maximum number of multiplayer servers for the region.
+        /// </summary>
+        public int MaxServers;
+        /// <summary>
+        /// The build region.
+        /// </summary>
+        public AzureRegion? Region;
+        /// <summary>
+        /// The number of standby multiplayer servers for the region.
+        /// </summary>
+        public int StandbyServers;
+    }
+
+    [Serializable]
+    public class MultiplayerServerBuildRegionUpdatedEventPayload
+    {
+        /// <summary>
+        /// The guid string ID of the multiplayer server build that regions were updated on.
+        /// </summary>
+        public string BuildId;
+        /// <summary>
+        /// The updated region configuration that should be applied to the specified build.
+        /// </summary>
+        public List<BuildRegion> BuildRegions;
+    }
+
+    [Serializable]
+    public class MultiplayerServerCertificateDeletedEventPayload
+    {
+        /// <summary>
+        /// The name of the certificate that was deleted.
+        /// </summary>
+        public string CertificateName;
+    }
+
+    [Serializable]
+    public class MultiplayerServerCertificateUploadedEventPayload
+    {
+        /// <summary>
+        /// The name of the certificate that was uploaded.
+        /// </summary>
+        public string CertificateName;
+    }
+
+    [Serializable]
+    public class MultiplayerServerCreateBuildInitiatedEventPayload
+    {
+        /// <summary>
+        /// The guid string ID of the build
+        /// </summary>
+        public string BuildId;
+        /// <summary>
+        /// The build name.
+        /// </summary>
+        public string BuildName;
+        /// <summary>
+        /// The time (UTC) that the build was created.
+        /// </summary>
+        public DateTime? CreationTime;
+        /// <summary>
+        /// The developer defined metadata of the build.
+        /// </summary>
+        public Dictionary<string,string> Metadata;
+    }
+
+    [Serializable]
+    public class MultiplayerServerGameAssetDeletedEventPayload
+    {
+        /// <summary>
+        /// The filename of the asset that was deleted.
+        /// </summary>
+        public string AssetFileName;
     }
 
     [Serializable]
@@ -2194,101 +2335,92 @@ namespace PlayFab.PlayStreamModels
     }
 
     [Serializable]
-    public class MatchmakingMatchFoundPayload
+    public class EntityUserGeneratedContentDraftItemCreatedEventPayload
     {
         /// <summary>
-        /// The identifier for the match.
+        /// The error when a User Generated Content item create request fails. If there was no failure, will be null.
         /// </summary>
-        public string MatchId;
+        public GenericErrorCodes? ErrorCode;
         /// <summary>
-        /// The name of the queue the match was created in.
+        /// The string ID of the item that was created. Will be empty if the create call failed.
         /// </summary>
-        public string QueueName;
+        public string ItemId;
         /// <summary>
-        /// The list of ticket identifiers that were matched together.
+        /// The human-readable error message when a User Generated Content item create request fails. If there was no failure, will
+        /// be empty.
         /// </summary>
-        public List<string> TicketIds;
+        public string Message;
     }
 
     [Serializable]
-    public class MatchmakingTicketCompletePayload
+    public class EntityUserGeneratedContentDraftItemDeletedEventPayload
     {
         /// <summary>
-        /// If the ticket result is "Canceled" then this string provides the reason why the ticket was canceled otherwise it is
-        /// null. The possible list of values are "User", "Service", "Internal", "Timeout".
+        /// The error when a User Generated Content item deleted request fails. If there was no failure, will be null.
         /// </summary>
-        public string CancellationReason;
+        public GenericErrorCodes? ErrorCode;
         /// <summary>
-        /// Time at which this ticket was completed.
+        /// The ID of the item that was deleted.
         /// </summary>
-        public DateTime CompletionTime;
+        public string ItemId;
         /// <summary>
-        /// Time at which this ticket was created.
+        /// The human-readable error message when a User Generated Content item deleted request fails. If there was no failure, will
+        /// be empty.
         /// </summary>
-        public DateTime CreationTime;
-        /// <summary>
-        /// The name of the queue the ticket was created in.
-        /// </summary>
-        public string QueueName;
-        /// <summary>
-        /// The final state of the ticket. It could be "Matched" or "Canceled".
-        /// </summary>
-        public string Result;
-        /// <summary>
-        /// Time at which this ticket was submitted into the matchmaking queue.
-        /// </summary>
-        public DateTime? SubmissionTime;
-        /// <summary>
-        /// The list of entities that are part of this ticket.
-        /// </summary>
-        public List<EntityKey> TicketEntities;
-        /// <summary>
-        /// Id of the ticket that was completed.
-        /// </summary>
-        public string TicketId;
+        public string Message;
     }
 
     [Serializable]
-    public class MatchmakingUserTicketCompletePayload
+    public class EntityUserGeneratedContentDraftItemPublishRequestedEventPayload
     {
         /// <summary>
-        /// If the ticket result is "Canceled" then this string provides the reason why the ticket was canceled otherwise it is
-        /// null. The possible list of values are "User", "Service", "Internal", "Timeout".
+        /// The error when a User Generated Content item publish request fails. If there was no failure, will be null.
         /// </summary>
-        public string CancellationReason;
+        public GenericErrorCodes? ErrorCode;
         /// <summary>
-        /// The id of the match the ticket got matched into. If the ticket did not get matched this is set to null
+        /// The string ID of the draft item that was requested to be published. Will be empty if the request call failed.
         /// </summary>
-        public string MatchId;
+        public string ItemId;
         /// <summary>
-        /// The name of the queue the ticket was created in.
+        /// The human-readable error message when a User Generated Content item publish request fails. If there was no failure, will
+        /// be empty.
         /// </summary>
-        public string QueueName;
-        /// <summary>
-        /// The final state of the ticket. Allowed states are "Matched" or "Canceled".
-        /// </summary>
-        public string Result;
-        /// <summary>
-        /// Id of the ticket that was completed.
-        /// </summary>
-        public string TicketId;
+        public string Message;
     }
 
     [Serializable]
-    public class MatchmakingUserTicketInvitePayload
+    public class EntityUserGeneratedContentDraftItemUpdatedEventPayload
     {
         /// <summary>
-        /// Entity that invited the user to join the ticket.
+        /// The error when a User Generated Content item update request fails. If there was no failure, will be null.
         /// </summary>
-        public EntityKey CreatorEntity;
+        public GenericErrorCodes? ErrorCode;
         /// <summary>
-        /// The name of the queue the ticket was created in.
+        /// The string ID of the item that was updated. Will be empty if the update call failed.
         /// </summary>
-        public string QueueName;
+        public string ItemId;
         /// <summary>
-        /// Id of the ticket that the user was invited to.
+        /// The human-readable error message when a User Generated Content item update request fails. If there was no failure, will
+        /// be empty.
         /// </summary>
-        public string TicketId;
+        public string Message;
+    }
+
+    [Serializable]
+    public class EntityUserGeneratedContentItemReportedEventPayload
+    {
+        /// <summary>
+        /// The category for which this item was reported.
+        /// </summary>
+        public string ConcernCategory;
+        /// <summary>
+        /// The string ID of the item that was reported.
+        /// </summary>
+        public string ItemId;
+        /// <summary>
+        /// The reason for which this item was reported.
+        /// </summary>
+        public string Reason;
     }
 
     public enum PlayerProfileProperty
@@ -3238,6 +3370,30 @@ namespace PlayFab.PlayStreamModels
         /// Dictionary of player's virtual currency balances
         /// </summary>
         public Dictionary<string,int> VirtualCurrencyBalances;
+    }
+
+    public enum ProductIdType
+    {
+        BigCatId,
+        XboxTitleId
+    }
+
+    [Serializable]
+    public class PublisherProduct
+    {
+        /// <summary>
+        /// The product Id mapped.
+        /// </summary>
+        public string ProductId;
+        /// <summary>
+        /// The type of Id mapped.
+        /// </summary>
+        public ProductIdType? ProductIdType;
+    }
+
+    public enum PublisherStore
+    {
+        MicrosoftStore
     }
 
     [Serializable]

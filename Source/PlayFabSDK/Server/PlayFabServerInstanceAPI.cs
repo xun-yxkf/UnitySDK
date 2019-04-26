@@ -77,6 +77,17 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab
+        /// ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as
+        /// authentication credentials, as the intent is that it is easily accessible by other players.
+        /// </summary>
+        public void AddGenericID(AddGenericIDRequest request, Action<EmptyResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var context = (request == null ? null : request.AuthenticationContext) ?? authenticationContext;
+            PlayFabHttp.MakeApiCall("/Server/AddGenericID", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, apiSettings, this);
+        }
+
+        /// <summary>
         /// Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag.
         /// </summary>
         public void AddPlayerTag(AddPlayerTagRequest request, Action<AddPlayerTagResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -470,6 +481,17 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the
+        /// service name plus the service-specific ID for the player, as specified by the title when the generic identifier was
+        /// added to the player account.
+        /// </summary>
+        public void GetPlayFabIDsFromGenericIDs(GetPlayFabIDsFromGenericIDsRequest request, Action<GetPlayFabIDsFromGenericIDsResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var context = (request == null ? null : request.AuthenticationContext) ?? authenticationContext;
+            PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromGenericIDs", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, apiSettings, this);
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of Nintendo Switch Device identifiers.
         /// </summary>
         public void GetPlayFabIDsFromNintendoSwitchDeviceIds(GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest request, Action<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -817,6 +839,15 @@ namespace PlayFab
         {
             var context = (request == null ? null : request.AuthenticationContext) ?? authenticationContext;
             PlayFabHttp.MakeApiCall("/Server/RemoveFriend", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, apiSettings, this);
+        }
+
+        /// <summary>
+        /// Removes the specified generic service identifier from the player's PlayFab account.
+        /// </summary>
+        public void RemoveGenericID(RemoveGenericIDRequest request, Action<EmptyResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var context = (request == null ? null : request.AuthenticationContext) ?? authenticationContext;
+            PlayFabHttp.MakeApiCall("/Server/RemoveGenericID", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, apiSettings, this);
         }
 
         /// <summary>
